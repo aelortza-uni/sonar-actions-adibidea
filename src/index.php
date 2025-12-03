@@ -126,6 +126,36 @@ $departamentua = $_GET['dept'];
 $departamentua = $_GET['dept']; 
 $departamentua = $_GET['dept']; 
 $departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
 
 
 
