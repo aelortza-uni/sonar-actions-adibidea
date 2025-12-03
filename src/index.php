@@ -3,6 +3,7 @@
  * INTRANET KORPORATIBOA v2.4 (Beta)
  * 2018-11-15
  * Moduluak: Login, Langileak, Fitxategiak, Txostenak
+ * Egilea: Axlor
  */
 
 // ------------------------------------------------------------------
