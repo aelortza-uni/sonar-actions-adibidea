@@ -1,2 +1,2 @@
 # sonar-actions-adibidea
-Ngrok tunela erabiliz
+Ngrok tunela erabiliz.
