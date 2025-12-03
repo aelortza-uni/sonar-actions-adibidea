@@ -9,6 +9,7 @@
 // ------------------------------------------------------------------
 // 1. KONFIGURAZIOA
 // ------------------------------------------------------------------
+// ARAZOA: Hardcoded Credentials (Pasahitzak kodean)
 $db_server = "localhost";
 $db_user = "admin_root"; 
 $db_pass = "Enpresa2018!"; 
@@ -18,6 +19,7 @@ $conn = new mysqli($db_server, $db_user, $db_pass, $db_name);
 
 // Konexioa egiaztatu
 if ($conn->connect_error) {
+    // ARAZOA: Information Exposure (Errore teknikoak erakustea)
     echo "Errorea: " . $conn->connect_error; 
 }
 
@@ -28,12 +30,14 @@ $user_input = $_POST['user'];
 $pass_input = $_POST['pass'];
 
 if (isset($user_input)) {
+    // ARAZOA: SQL Injection Arriskua (Zuzenean sartutako aldagaia)
+    // ARAZOA: Weak Cryptography (MD5 zaharkituta dago)
     $sql = "SELECT * FROM users WHERE username = '$user_input' AND password = '" . md5($pass_input) . "'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        // COOKIE SEGURTASUN EZA (HttpOnly gabe)
+        // ARAZOA: Insecure Cookie (HttpOnly eta Secure falta dira)
         setcookie("user_login", $row['username'], time() + (86400 * 30), "/"); 
         $logged_in = true;
     }
@@ -45,6 +49,7 @@ if (isset($user_input)) {
 
 function kalkulatuProduktibitatea($orduak, $proiektuak, $kategoria, $baja) {
     $ratio = 0;
+    // ARAZOA: Cognitive Complexity (Habiaratutako IF gehiegi)
     if ($baja == false) {
         if ($kategoria == "Senior") {
             if ($proiektuak > 5) {
@@ -64,7 +69,7 @@ function kalkulatuProduktibitatea($orduak, $proiektuak, $kategoria, $baja) {
             if ($proiektuak > 2) {
                 $ratio = 50;
             } else {
-                // MAGIC NUMBER
+                // ARAZOA: Magic Number (33 zenbakia azalpenik gabe)
                 $ratio = 33; 
             }
         } else {
@@ -83,7 +88,10 @@ function kalkulatuProduktibitatea($orduak, $proiektuak, $kategoria, $baja) {
 
 function bidaliEmailaZaharra($to, $subject) {
     $headers = "From: admin@enpresa.com";
+    // ARAZOA: Commented Out Code (Iruzkindutako kodea ezabatu behar da)
     // mail($to, $subject, "Test", $headers);
+    
+    // ARAZOA: Unused Local Variables (Erabili gabeko aldagaiak)
     $a = 10;
     $b = 20;
     return false;
@@ -92,6 +100,7 @@ function bidaliEmailaZaharra($to, $subject) {
 function prozesatuFitxategia($file) {
     $handle = fopen($file, "r");
     if ($handle) {
+        // ARAZOA: Resource Leak (Fitxategia ez da ixten fclose-ekin)
         $contents = fread($handle, filesize($file));
         return $contents;
     }
@@ -101,8 +110,10 @@ function prozesatuFitxategia($file) {
 // ------------------------------------------------------------------
 // 4. DATU NAGUSIAK BISTARATZEA
 // ------------------------------------------------------------------
+// ARAZOA: Input Validation falta (XSS arriskua)
 $departamentua = $_GET['dept']; 
 
+// ARAZOA: SQL Injection berriro
 $sql_emp = "SELECT * FROM langileak WHERE dept_id = " . $departamentua;
 $langileak = $conn->query($sql_emp);
 
@@ -140,6 +151,7 @@ $langileak = $conn->query($sql_emp);
             // Kalkulu konplexua deitu
             $prod = kalkulatuProduktibitatea($row['orduak'], $row['proiektuak'], $row['kategoria'], false);
             
+            // ARAZOA: BUG larria (Esleipena = konparaketaren ordez ==)
             if ($prod = 100) { 
                 echo "<td style='color:green'>BIKAINA</td>";
             } else {
@@ -151,6 +163,7 @@ $langileak = $conn->query($sql_emp);
         }
         echo "</table>";
     } else {
+        // ARAZOA: XSS (Reflected Cross Site Scripting) - $departamentua zuzenean inprimatzen da
         echo "<p>Ez da daturik aurkitu departamentu honetan: " . $departamentua . "</p>";
     }
     ?>
@@ -158,6 +171,7 @@ $langileak = $conn->query($sql_emp);
     <div class="info">
         <h3>Sistemaren egoera</h3>
         <?php
+        // ARAZOA: Iruzkindutako kodea
         // phpinfo(); 
         
         $memoria = memory_get_usage();
@@ -179,6 +193,7 @@ $langileak = $conn->query($sql_emp);
     <footer>
         &copy; 2018 Enpresa S.L.
         <?php
+            // ARAZOA: Definitu gabeko aldagaia ($data)
             echo "Gaurko data: " . $data;
         ?>
     </footer>
