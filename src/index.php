@@ -112,6 +112,22 @@ function prozesatuFitxategia($file) {
 // ------------------------------------------------------------------
 // ARAZOA: Input Validation falta (XSS arriskua)
 $departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+$departamentua = $_GET['dept']; 
+
+
 
 // ARAZOA: SQL Injection berriro
 $sql_emp = "SELECT * FROM langileak WHERE dept_id = " . $departamentua;
