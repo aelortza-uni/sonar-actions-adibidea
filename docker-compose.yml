@@ -1,50 +1,39 @@
-networks:
-  sonar-sarea:
-    driver: bridge
-
 services:
-  sonarqube:
-    image: sonarqube:community
-    container_name: sonarqube
-    depends_on:
-      - db
+  sonar:
+    image: sonarqube:25.11.0.114957-community
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_logs:/opt/sonarqube/logs
+      - sonarqube_extensions:/opt/sonarqube/extensions
     environment:
-      - SONAR_JDBC_URL=jdbc:postgresql://db:5432/sonar
-      - SONAR_JDBC_USERNAME=sonar
-      - SONAR_JDBC_PASSWORD=sonar
       - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
-    volumes:
-      - ./data/sonar_data:/opt/sonarqube/data
-      - ./data/sonar_extensions:/opt/sonarqube/extensions
-      - ./data/sonar_logs:/opt/sonarqube/logs
     ports:
-      - "9000:9000"
+      - 9000:9000
     networks:
-      - sonar-sarea
-
-  db:
-    image: postgres:13
-    container_name: sonar-db
-    environment:
-      - POSTGRES_USER=sonar
-      - POSTGRES_PASSWORD=sonar
-      - POSTGRES_DB=sonar
-    volumes:
-      - ./data/postgresql:/var/lib/postgresql
-      - ./data/postgresql_data:/var/lib/postgresql/data
-    networks:
-      - sonar-sarea
-
+      - sonar
   ngrok:
     image: ngrok/ngrok:latest
-    container_name: ngrok
-    ports:
-      - "4040:4040"
     environment:
-      # Lortu zure tokena hemen: [https://dashboard.ngrok.com/get-started/your-authtoken](https://dashboard.ngrok.com/get-started/your-authtoken)
-      - NGROK_AUTHTOKEN=36Ivu38SXJrf2bKIDIzTTR4OugQ_5aBgg2Jy21QBukPW48ULC
-    command: "http sonarqube:9000"
-    depends_on:
-      - sonarqube
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
+    command:
+      - "start"
+      - "--all"
+      - "--config"
+      - "/etc/ngrok.yml"
+    ports:
+      - 4040:4040
+    volumes:
+    - ./ngrok.yml:/etc/ngrok.yml
     networks:
-      - sonar-sarea
+      - sonar
+
+networks:
+  sonar:
+
+volumes:
+  sonarqube_data:
+    external: false
+  sonarqube_logs:
+    external: false
+  sonarqube_extensions:
+    external: false
